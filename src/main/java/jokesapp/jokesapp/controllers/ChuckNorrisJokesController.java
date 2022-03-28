@@ -2,6 +2,8 @@ package jokesapp.jokesapp.controllers;
 
 import jokesapp.jokesapp.services.ChuckNorrisJokesService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ChuckNorrisJokesController {
@@ -12,7 +14,10 @@ public class ChuckNorrisJokesController {
         this.chuckNorrisJokesService = chuckNorrisJokesService;
     }
 
-    public String tellChuckNorrisJoke() {
-        return chuckNorrisJokesService.tellJoke();
+    @RequestMapping({ "/", ""})
+    public String tellChuckNorrisJoke(Model model) {
+        model.addAttribute("joke", chuckNorrisJokesService.tellJoke());
+
+        return "index";
     }
 }
